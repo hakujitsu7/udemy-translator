@@ -1,0 +1,1 @@
+REG ADD "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.hakujitsu.udemy_translator" /ve /t REG_SZ /d "%~dp0manifest_chrome.json" /f
