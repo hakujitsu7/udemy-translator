@@ -108,34 +108,38 @@ class Translator:
         return len(self.scripts)
 
     def translate_script(self, script_index: int) -> None:
-        # 번역 완료되지 않은 자막이라면 번역합니다.
-        if not self.translated_scripts[script_index]:
-            for sentence_index in self.script_table[script_index]:
-                # 자막에 포함된 문장들 중 아직 번역되지 않은 문장들을 번역합니다.
-                if not self.sentence_table[sentence_index]['is_translated']:
-                    sentence = self.sentences[sentence_index]
+        # 이미 번역된 자막이라면 건너뜁니다.
+        if self.translated_scripts[script_index]:
+            return
 
-                    translated_sentence = translate(sentence, self.source, self.target, self.api_key)
-                    self.sentence_table[sentence_index]['is_translated'] = True
+        # 자막에 포함된 문장들을 번역합니다.
+        for sentence_index in self.script_table[script_index]:
+            # 이미 번역된 문장이라면 건너뜁니다.
+            if self.sentence_table[sentence_index]['is_translated']:
+                continue
 
-                    # 번역된 문장들을 어절 단위로 나눕니다.
-                    words = translated_sentence.split(' ')
-                    total_words = len(words)
+            # 아직 번역되지 않은 문장을 번역합니다.
+            translated_sentence = translate(self.sentences[sentence_index], self.source, self.target, self.api_key)
+            self.sentence_table[sentence_index]['is_translated'] = True
 
-                    # 원어 자막에서의 자막별 어절 포함 비율을 토대로, 번역된 문장의 어절을 각 자막에 분배합니다.
-                    last_key = list(self.sentence_table[sentence_index]['scripts'].keys())[-1]
-                    for key in self.sentence_table[sentence_index]['scripts'].keys():
-                        if key != last_key:
-                            split_count = int(round(total_words * self.sentence_table[sentence_index]['scripts'][key]))
+            # 번역된 문장들을 어절 단위로 나눕니다.
+            words = translated_sentence.split(' ')
+            total_words = len(words)
 
-                            self.translation_cache[key][sentence_index] = ' '.join(words[:split_count])
-                            words = words[split_count:]
-                        else:
-                            self.translation_cache[key][sentence_index] = ' '.join(words)
+            # 원어 자막에서의 자막별 어절 포함 비율을 토대로, 번역된 문장의 어절을 각 자막에 분배합니다.
+            last_key = list(self.sentence_table[sentence_index]['scripts'].keys())[-1]
+            for key in self.sentence_table[sentence_index]['scripts'].keys():
+                if key != last_key:
+                    split_count = int(round(total_words * self.sentence_table[sentence_index]['scripts'][key]))
 
-            # 자막에 포함된 문장들을 문장 번호 기준으로 정렬한 뒤, 이어 붙입니다.
-            translated_script = ' '.join(dict(sorted(self.translation_cache[script_index].items())).values())
-            self.translated_scripts[script_index] = translated_script
+                    self.translation_cache[key][sentence_index] = ' '.join(words[:split_count])
+                    words = words[split_count:]
+                else:
+                    self.translation_cache[key][sentence_index] = ' '.join(words)
+
+        # 자막에 포함된 문장들을 문장 번호 기준으로 정렬한 뒤, 이어 붙입니다.
+        translated_script = ' '.join(dict(sorted(self.translation_cache[script_index].items())).values())
+        self.translated_scripts[script_index] = translated_script
 
     def get_translated_script(self, script_index: int) -> str:
         return self.translated_scripts[script_index]
