@@ -3,7 +3,7 @@
   "description": "Udemy Translator",
   "path": "main.bat",
   "type": "stdio",
-  "allowed_origins": [
-    "chrome-extension://hhgpkgpfhcfbllngcfddemkhfmmfldab/"
+  "allowed_extensions": [
+    "{7398a597-f01b-4fc5-9fe1-9394abb47b02}"
   ]
 }

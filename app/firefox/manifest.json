@@ -1,0 +1,34 @@
+{
+    "manifest_version": 2,
+    "name": "Udemy Translator",
+    "version": "1.0",
+
+    "description": "Udemy Translator",
+
+    "applications": {
+        "gecko": {
+            "id": "{7398a597-f01b-4fc5-9fe1-9394abb47b02}"
+        }
+    },
+
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://*.udemy.com/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "permissions": [
+        "*://*.udemy.com/*",
+        "*://vtt-b.udemycdn.com/*",
+        "nativeMessaging",
+        "storage",
+        "tabs",
+        "webRequest"
+    ]
+}
