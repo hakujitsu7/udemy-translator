@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     helpLinkApiKey.addEventListener("click", () => {
-        chrome.tabs.create({ url: helpLinkApiKey.href });
+        chrome.tabs.create({ url: helpLinkApiKey.dataset.href });
+        window.close();
     });
 });
