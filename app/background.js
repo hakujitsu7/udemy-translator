@@ -44,5 +44,10 @@ port.onMessage.addListener(message => {
     }
     else if (message.message === "EXCEPTION_OCCERRED") {
         chrome.extension.getBackgroundPage().console.log(message.exception);
+
+        chrome.tabs.sendMessage(latestSender.tab.id, {
+            message: "EXCEPTION_OCCERRED",
+            exception: message.exception
+        });
     }
 });

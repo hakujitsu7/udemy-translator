@@ -20,6 +20,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             caption.innerText = translatedCaption;
         }
     }
+    else if (message.message === "EXCEPTION_OCCERRED") {
+        alert(
+            "자막을 번역하던 중 예외가 발생했습니다.\n" +
+            "페이지를 새로고침해 주시기 바랍니다.\n" +
+            "\n" +
+            message.exception
+        );
+    }
 });
 
 const timer = setInterval(() => {
