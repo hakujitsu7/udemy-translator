@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         selectTargetLanguage.options.add(new Option(languages[key], key));
     }
 
-    browser.storage.local.get(
+    chrome.storage.local.get(
         {
             "sourceLanguage": "en",
             "targetLanguage": "ko",
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
 
         if (form.checkValidity()) {
-            browser.storage.local.set({
+            chrome.storage.local.set({
                 "sourceLanguage": selectSourceLanguage.value,
                 "targetLanguage": selectTargetLanguage.value,
                 "apiKey": InputApiKey.value || null
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     helpLinkApiKey.addEventListener("click", () => {
-        browser.tabs.create({ url: helpLinkApiKey.dataset.href });
+        chrome.tabs.create({ url: helpLinkApiKey.dataset.href });
         window.close();
     });
 });

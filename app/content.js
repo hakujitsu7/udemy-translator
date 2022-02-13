@@ -4,14 +4,14 @@ function onCaptionUpdated() {
     const caption = document.querySelector(".captions-display--captions-cue-text--ECkJu");
 
     if (caption && caption.innerText !== translatedCaption) {
-        browser.runtime.sendMessage({
+        chrome.runtime.sendMessage({
             message: "TRANSLATE_CAPTION",
             caption: caption.innerText
         });
     }
 }
 
-browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.message === "CAPTION_TRANSLATED") {
         const caption = document.querySelector(".captions-display--captions-cue-text--ECkJu");
 
