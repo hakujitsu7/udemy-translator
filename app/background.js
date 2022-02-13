@@ -1,5 +1,5 @@
 const port = chrome.runtime.connectNative("com.hakujitsu.udemy_translator");
-let latestSender = null;
+let lastSender = null;
 
 chrome.webRequest.onSendHeaders.addListener(
     details => {
@@ -26,18 +26,18 @@ chrome.webRequest.onSendHeaders.addListener(
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.message === "TRANSLATE_CAPTION") {
+        lastSender = sender;
+
         port.postMessage(JSON.stringify({
             message: "TRANSLATE_SCRIPT",
             script: message.caption.trim().replaceAll('\n', ' ')
         }));
-
-        latestSender = sender;
     }
 });
 
 port.onMessage.addListener(message => {
     if (message.message === "SCRIPT_TRANSLATED") {
-        chrome.tabs.sendMessage(latestSender.tab.id, {
+        chrome.tabs.sendMessage(lastSender.tab.id, {
             message: "CAPTION_TRANSLATED",
             translated_caption: message.translated_script
         });
@@ -45,7 +45,7 @@ port.onMessage.addListener(message => {
     else if (message.message === "EXCEPTION_OCCERRED") {
         chrome.extension.getBackgroundPage().console.log(message.exception);
 
-        chrome.tabs.sendMessage(latestSender.tab.id, {
+        chrome.tabs.sendMessage(lastSender.tab.id, {
             message: "EXCEPTION_OCCERRED",
             exception: message.exception
         });
