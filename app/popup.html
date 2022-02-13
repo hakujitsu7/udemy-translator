@@ -13,34 +13,34 @@
 <body style="width: 300px;">
     <div class="container">
         <form id="form" novalidate>
-            <h1 class="col-md-12 mt-3 mb-3">Settings</h1>
+            <h1 class="col-md-12 mt-3 mb-3">설정</h1>
             <div id="alert-success" class="alert alert-success collapse" role="alert">
-                Your settings have been saved successfully.<br>
-                The new settings will be applied from the next video.
+                설정이 성공적으로 저장되었습니다.<br>
+                다음 동영상부터 새로운 설정이 반영됩니다.
             </div>
             <div class="col-md-12 mb-3">
                 <label for="select-source-language" class="form-label">
-                    Source language
+                    원본 언어
                     <span style="color: red;">*</span>
                 </label>
                 <select id="select-source-language" class="form-select form-select-sm" required></select>
                 <div class="invalid-feedback">
-                    Please select the source language.
+                    원본 언어를 선택해 주세요.
                 </div>
             </div>
             <div class="col-md-12 mb-3">
                 <label for="select-target-language" class="form-label">
-                    Target language
+                    대상 언어
                     <span style="color: red;">*</span>
                 </label>
                 <select id="select-target-language" class="form-select form-select-sm" required></select>
                 <div class="invalid-feedback">
-                    Please select the target language.
+                    대상 언어를 선택해 주세요.
                 </div>
             </div>
             <div class="col-md-12 mb-3">
                 <label for="input-api-key" class="form-label">
-                    Cloud Translation API key
+                    클라우드 번역 API 키
                     <a id="help-link-api-key" href="" data-href="https://cloud.google.com/translate">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -50,13 +50,13 @@
                 </label>
                 <input id="input-api-key" type="text" pattern="[\w-]{39}" class="form-control form-control-sm" aria-describedby="help-block-api-key">
                 <div id="help-block-api-key" class="form-text">
-                    This setting makes the translation much more accurate, but may incur charges based on API usage.
+                    이 설정은 번역을 훨씬 더 자연스럽게 만들어 주지만, API 사용량에 따라 요금이 부과될 수 있습니다.
                 </div>
                 <div class="invalid-feedback">
-                    Please enter a valid API key.
+                    올바른 API 키를 입력해 주세요.
                 </div>
             </div>
-            <button id="save-settings" type="submit" class="btn btn-dark mb-3">Save</button>
+            <button id="save-settings" type="submit" class="btn btn-dark mb-3">저장</button>
         </form>
     </div>
 </body>
