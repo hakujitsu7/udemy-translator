@@ -4,6 +4,9 @@
     "version": "1.0",
 
     "description": "유데미 자막을 문장 단위로 번역해 주는 확장 프로그램입니다.",
+    "icons": {
+        "64": "icons/icon.png"
+    },
 
     "applications": {
         "gecko": {
