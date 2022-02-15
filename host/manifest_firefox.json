@@ -1,7 +1,7 @@
 {
   "name": "com.hakujitsu.udemy_translator",
-  "description": "Udemy Translator",
-  "path": "main.bat",
+  "description": "유데미 번역기",
+  "path": "main.exe",
   "type": "stdio",
   "allowed_extensions": [
     "{7398a597-f01b-4fc5-9fe1-9394abb47b02}"
